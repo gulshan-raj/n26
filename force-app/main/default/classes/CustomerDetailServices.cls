@@ -7,22 +7,26 @@ global with sharing class CustomerDetailServices {
         RestResponse res = RestContext.response;
         String customerUid = req.requestURI.substring(req.requestURI.lastIndexOf('/')+1);
         try {
-            if(Utility.isValidSalesforceId(customerUid,Contact.class)){
-                Contact cDetails = [SELECT Id, LastName, FirstName, Product__r.Name, Product__r.type__c,Product__r.Customer_ATM_Fee__c ,Product__r.Customer_cost_per_calendar_month__c,Product__r.CurrencyIsoCode,Product__r.Card_Replacement_Cost__c, Home_Country__c FROM Contact WHERE id=:customerUid ];
-                cwrap.isSuccess = true;
-                cwrap.firstName = cDetails.FirstName;
-                cwrap.lastName = cDetails.LastName;
-                cwrap.replacementCost = cDetails.Product__r.Card_Replacement_Cost__c;
-                cwrap.accountMonthlyCost= cDetails.Product__r.Customer_cost_per_calendar_month__c;
-                cwrap.accountType = cDetails.Product__r.type__c;
-                cwrap.atmFee  = cDetails.Product__r.Customer_ATM_Fee__c;
-                cwrap.country  = cDetails.Home_Country__c;
-                cwrap.currencyType  = cDetails.Product__r.CurrencyIsoCode;
-                
-            }else{
-                cwrap.isSuccess =false;
-                cwrap.errorMessage = 'Invalid customer id';
-            }
+                List<Contact> lstContact = [SELECT Id, LastName, FirstName,Product__c, Product__r.Name, Product__r.type__c,Product__r.Customer_ATM_Fee__c ,Product__r.Customer_cost_per_calendar_month__c,Product__r.CurrencyIsoCode,Product__r.Card_Replacement_Cost__c, Home_Country__c FROM Contact WHERE External_System_Id__c=:customerUid ];
+                if(lstContact.isEmpty()){
+                    cwrap.isSuccess =false;
+                    cwrap.errorMessage = 'Invalid customer id';
+                }else{
+                    Contact cDetails = lstContact[0];
+                    cwrap.isSuccess = true;
+                    cwrap.firstName = cDetails.FirstName;
+                    cwrap.lastName = cDetails.LastName;
+                    if(cDetails.Product__c == null){
+                        cwrap.errorMessage = 'No Product is attached to the customer';
+                    }else{
+                        cwrap.replacementCost = cDetails.Product__r.Card_Replacement_Cost__c;
+                        cwrap.accountMonthlyCost= cDetails.Product__r.Customer_cost_per_calendar_month__c;
+                        cwrap.accountType = cDetails.Product__r.type__c;
+                        cwrap.atmFee  = cDetails.Product__r.Customer_ATM_Fee__c;
+                        cwrap.country  = cDetails.Home_Country__c;
+                        cwrap.currencyType  = cDetails.Product__r.CurrencyIsoCode;
+                    }
+                }   
         } catch (Exception ex) {
             cwrap.isSuccess =false;
             cwrap.errorMessage = ex.getMessage();
