@@ -8,8 +8,7 @@ public with sharing class CustomerKeyInfoController {
         getFieldsFromFieldSet(ckdWrapper);
         //get associated product id
         populateProduct(caseId,ckdWrapper);
-
-        system.debug('@@cdkWrapper: '+ckdWrapper);
+        
         return ckdWrapper;
 
     }
@@ -41,10 +40,13 @@ public with sharing class CustomerKeyInfoController {
     public class CustomerKeyDetailsWrapper{
         @AuraEnabled
         public Id productId {get;set;}
+        //List of product fields to populae
         @AuraEnabled
         public List<String> productFields {get;set;}
+        //Are we get the product's detail successfully?
         @AuraEnabled
         public Boolean isSuccess {get;set;}
+        // Error message if record not found
         @AuraEnabled
         public String errorMessage {get;set;}
     }
