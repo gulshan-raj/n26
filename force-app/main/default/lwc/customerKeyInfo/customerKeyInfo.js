@@ -6,7 +6,7 @@ export default class CustomerKeyInfo extends LightningElement {
     @track isLoaded;
     @track isError;
     @track errorMessage;
-    @track fieldset;
+    @track fields;
     connectedCallback(){
         this.isLoaded = true;
         getCustomerDetails({caseId:this.recordId})
@@ -14,7 +14,7 @@ export default class CustomerKeyInfo extends LightningElement {
             console.log('result',result);
             if(result.isSuccess){
                 this.productId = result.productId;
-                this.fieldset = result.productFields;
+                this.fields = result.productFields;
             }else{
                 this.isError = true;
                 this.errorMessage = result.errorMessage;
