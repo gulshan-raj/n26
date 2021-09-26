@@ -21,6 +21,7 @@ global with sharing class CustomerDetailServices {
                     cwrap.lastName = cDetails.LastName;
                     //There is no product associated with the customer
                     if(cDetails.Product__c == null){
+                        cwrap.isSuccess =false;
                         cwrap.errorMessage = 'No Product is attached to the customer';
                     }else{
                         cwrap.replacementCost = cDetails.Product__r.Card_Replacement_Cost__c;
