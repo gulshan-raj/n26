@@ -3,6 +3,7 @@
     <fullName>Cost_per_Calendar_Month__c</fullName>
     <description>Monthly cost of account</description>
     <externalId>false</externalId>
+    <inlineHelpText>Monthly maintenance cost to customer</inlineHelpText>
     <label>Cost per Calendar Month</label>
     <precision>18</precision>
     <required>false</required>

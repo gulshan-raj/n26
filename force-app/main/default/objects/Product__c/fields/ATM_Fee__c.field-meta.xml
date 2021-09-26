@@ -3,6 +3,7 @@
     <fullName>ATM_Fee__c</fullName>
     <description>ATM fee on different account types</description>
     <externalId>false</externalId>
+    <inlineHelpText>ATM maintenance fee</inlineHelpText>
     <label>ATM Fee</label>
     <precision>7</precision>
     <required>false</required>
