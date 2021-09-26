@@ -33,7 +33,7 @@
         <isRequired>false</isRequired>
     </displayedFields>
     <displayedFields>
-        <field>ATM_Fee__c</field>
+        <field>Customer_ATM_Fee__c</field>
         <isFieldManaged>false</isFieldManaged>
         <isRequired>false</isRequired>
     </displayedFields>
