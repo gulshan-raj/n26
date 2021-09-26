@@ -1,0 +1,26 @@
+<template>
+    <div class="slds-m-around_large">
+         <div if:true={isLoaded} class="slds-is-relative">
+            <lightning-spinner
+                alternative-text="Loading..." variant="brand">
+            </lightning-spinner>
+        </div>
+        <div if:false={isLoaded}>
+            <lightning-record-view-form
+            record-id={productId}
+            object-api-name="Product__c">
+                <div class="slds-grid">
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-output-field field-name="Cost_per_Calendar_Month__c"></lightning-output-field>
+                        <lightning-output-field field-name="ATM_Fee__c"></lightning-output-field>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-output-field field-name="Card_Replacement_Cost__c"></lightning-output-field>
+                        <lightning-output-field field-name="Country__c"></lightning-output-field>
+                    </div>
+                </div>
+            </lightning-record-view-form>
+        </div>
+    </div>
+   
+</template>
